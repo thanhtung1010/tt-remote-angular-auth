@@ -1,0 +1,143 @@
+<section class="tt-auth">
+  <section class="tt-auth_container">
+    <section class="tt-auth_content-wrap">
+      <section class="tt-auth_content" [ngClass]="{'tt-auth_content-signup': isSignUp}">
+        <section class="tt-login">
+          <h2 class="tt-login_title">{{'COMMON.LOG_IN' | translate}}</h2>
+          <section class="tt-login_form">
+            <form nz-form [formGroup]="loginForm">
+              <ng-container *ngIf="loginForm.contains('mail')">
+                <nz-form-item>
+                  <nz-form-control>
+                    <nz-input-group [nzPrefix]="mailInputTemp">
+                      <input nz-input formControlName="mail" [placeholder]="'FORM.EMAIL_HOLDER' | translate" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </ng-container>
+              <ng-container *ngIf="loginForm.contains('password')">
+                <nz-form-item>
+                  <nz-form-control>
+                    <nz-input-group [nzPrefix]="passwordInputTemp">
+                      <input nz-input formControlName="password" [type]="passwordVisible ? 'text' : 'password'"
+                        [placeholder]="'FORM.PASSWORD_HOLDER' | translate" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </ng-container>
+              <button class="tt-login_submit_btn" nz-button nzShape="round" nzType="primary">
+                <span>{{'COMMON.LOG_IN' | translate}}</span>
+              </button>
+            </form>
+            <div class="tt-login_form-bottom">
+              <p>{{'COMMON.FORGOT_PASSWORD' | translate}}</p>
+              <p (click)="onClickGoToSignUp()">{{'COMMON.GO_TO_SIGN_UP' | translate}}</p>
+            </div>
+          </section>
+          <p class="tt-login_or">{{'COMMON.ANOTHE_SIGNIN_METHOD' | translate}}</p>
+          <section class="tt-auth-thirth_party_service">
+            <button class="tt-auth-thirth_party_service-button tt-auth-thirth_party_service-google">
+              <img [src]="'google-logo' | TTAssetsLink:'svg'" alt="google-logo">
+              <span>{{'COMMON.CONTINUE_WITH_GG' | translate}}</span>
+            </button>
+            <button class="tt-auth-thirth_party_service-button tt-auth-thirth_party_service-facebook">
+              <img [src]="'facebook-login-logo' | TTAssetsLink:'svg'" alt="facebook-login-logo">
+              <span>{{'COMMON.CONTINUE_WITH_FB' | translate}}</span>
+            </button>
+          </section>
+        </section>
+
+        <section class="tt-signup">
+          <h2 class="tt-login_title">{{'COMMON.SIGN_UP' | translate}}</h2>
+          <section class="tt-login_form">
+            <form nz-form [formGroup]="signupForm">
+              <ng-container *ngIf="signupForm.contains('mail')">
+                <nz-form-item>
+                  <nz-form-control>
+                    <nz-input-group [nzPrefix]="mailInputTemp">
+                      <input nz-input formControlName="mail" [placeholder]="'FORM.EMAIL_HOLDER' | translate" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </ng-container>
+              <ng-container *ngIf="signupForm.contains('password')">
+                <nz-form-item>
+                  <nz-form-control>
+                    <nz-input-group [nzPrefix]="passwordInputTemp">
+                      <input nz-input formControlName="password" [type]="passwordVisible ? 'text' : 'password'"
+                        [placeholder]="'FORM.PASSWORD_HOLDER' | translate" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </ng-container>
+              <ng-container *ngIf="signupForm.contains('confirmPassword')">
+                <nz-form-item>
+                  <nz-form-control>
+                    <nz-input-group [nzPrefix]="passwordInputTemp">
+                      <input nz-input formControlName="confirmPassword" [type]="confirmPasswordVisible ? 'text' : 'password'"
+                        [placeholder]="'FORM.PASSWORD_HOLDER' | translate" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </ng-container>
+              <button class="tt-login_submit_btn" nz-button nzShape="round" nzType="primary">
+                <span>{{'COMMON.SIGN_UP' | translate}}</span>
+              </button>
+            </form>
+            <div class="tt-login_form-bottom">
+              <p (click)="onClickBackToLogin()">{{'COMMON.BACK_TO_LOGIN' | translate}}</p>
+            </div>
+          </section>
+          <p class="tt-login_or">{{'COMMON.ANOTHE_SIGNUP_METHOD' | translate}}</p>
+          <section class="tt-auth-thirth_party_service">
+            <button class="tt-auth-thirth_party_service-button tt-auth-thirth_party_service-google">
+              <img [src]="'google-logo' | TTAssetsLink:'svg'" alt="google-logo">
+              <span>{{'COMMON.CONTINUE_WITH_GG' | translate}}</span>
+            </button>
+            <button class="tt-auth-thirth_party_service-button tt-auth-thirth_party_service-facebook">
+              <img [src]="'facebook-login-logo' | TTAssetsLink:'svg'" alt="facebook-login-logo">
+              <span>{{'COMMON.CONTINUE_WITH_FB' | translate}}</span>
+            </button>
+          </section>
+        </section>
+      </section>
+    </section>
+
+    <!-- region decord -->
+    <img [src]="'stand-right-bird' | TTAssetsLink:'svg'" alt="stand-right-bird" class="tt-auth-stand_birth">
+    <img [src]="'lazy-cat' | TTAssetsLink:'svg'" alt="lazy-cat" class="tt-auth-lazy-cat">
+  </section>
+</section>
+
+<!-- region template -->
+<ng-template #mailInputTemp>
+  <div style="margin-right: 11px;">
+    <img style="width: 25px;" [src]="'email' | TTAssetsLink:'svg'" alt="email">
+  </div>
+</ng-template>
+
+<ng-template #passwordInputTemp>
+  <div class="password-prefix" style="cursor: pointer; margin-right: 11px;" (click)="passwordVisible = !passwordVisible">
+    <img [src]="'eye' | TTAssetsLink:'svg'" alt="eye">
+    <ng-container *ngIf="!passwordVisible">
+      <div @invisibleEyeEnter @invisibleEyeLeave class="invisible-eye-wrap">
+        <div class="invisible-eye">
+          <div class="line"></div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #confirmPasswordInputTemp>
+  <div class="password-prefix" style="cursor: pointer; margin-right: 11px;" (click)="confirmPasswordVisible = !confirmPasswordVisible">
+    <img [src]="'eye' | TTAssetsLink:'svg'" alt="eye">
+    <ng-container *ngIf="!confirmPasswordVisible">
+      <div @invisibleEyeEnter @invisibleEyeLeave class="invisible-eye-wrap">
+        <div class="invisible-eye">
+          <div class="line"></div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
