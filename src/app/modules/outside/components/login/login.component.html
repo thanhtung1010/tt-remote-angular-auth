@@ -1,6 +1,32 @@
 <section class="tt-auth">
   <section class="tt-auth_container">
     <section class="tt-auth_content-wrap">
+      <section [ngClass]="{'tt-auth_content-signup': isSignUp}">
+        <section class="tt-login-v2">
+          <section class="tt-auth-thirth_party_service tt-auth-thirth_party_service-v2">
+            <button class="tt-auth-thirth_party_service-button tt-auth-thirth_party_service-button-v2 tt-auth-thirth_party_service-google"
+              (click)="loginWithGoogle()" id="sign-in-button">
+              <img [src]="'google-logo' | TTAssetsLink:'svg'" alt="google-logo">
+              <span>{{'COMMON.CONTINUE_WITH_GG' | translate}}</span>
+            </button>
+            <button class="tt-auth-thirth_party_service-button tt-auth-thirth_party_service-button-v2 tt-auth-thirth_party_service-facebook"
+              (click)="loginWithFacebook()">
+              <img [src]="'facebook-login-logo' | TTAssetsLink:'svg'" alt="facebook-login-logo">
+              <span>{{'COMMON.CONTINUE_WITH_FB' | translate}}</span>
+            </button>
+          </section>
+        </section>
+      </section>
+    </section>
+
+    <!-- region decord -->
+    <img [src]="'stand-right-bird' | TTAssetsLink:'svg'" alt="stand-right-bird" class="tt-auth-stand_birth">
+    <img [src]="'lazy-cat' | TTAssetsLink:'svg'" alt="lazy-cat" class="tt-auth-lazy-cat">
+  </section>
+</section>
+<!-- <section class="tt-auth">
+  <section class="tt-auth_container">
+    <section class="tt-auth_content-wrap">
       <section class="tt-auth_content" [ngClass]="{'tt-auth_content-signup': isSignUp}">
         <section class="tt-login">
           <h2 class="tt-login_title">{{'COMMON.LOG_IN' | translate}}</h2>
@@ -101,16 +127,16 @@
           </section>
         </section>
       </section>
-    </section>
+    </section> -->
 
     <!-- region decord -->
-    <img [src]="'stand-right-bird' | TTAssetsLink:'svg'" alt="stand-right-bird" class="tt-auth-stand_birth">
+    <!-- <img [src]="'stand-right-bird' | TTAssetsLink:'svg'" alt="stand-right-bird" class="tt-auth-stand_birth">
     <img [src]="'lazy-cat' | TTAssetsLink:'svg'" alt="lazy-cat" class="tt-auth-lazy-cat">
   </section>
-</section>
+</section> -->
 
 <!-- region template -->
-<ng-template #mailInputTemp>
+<!-- <ng-template #mailInputTemp>
   <div style="margin-right: 11px;">
     <img style="width: 25px;" [src]="'email' | TTAssetsLink:'svg'" alt="email">
   </div>
@@ -140,4 +166,4 @@
       </div>
     </ng-container>
   </div>
-</ng-template>
+</ng-template> -->

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from 'tt-library-angular-porfolio';
 
 @Component({
   selector: 'tt-outside',
@@ -6,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OutsideComponent implements OnInit {
 
-  constructor() { }
+  constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit() {
+    this.firebaseService.init();
   }
 
 }

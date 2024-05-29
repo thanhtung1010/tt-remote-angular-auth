@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Route, RouterModule, Routes } from "@angular/router";
 import { AppComponent } from "./app.component";
-import { ROUTE } from 'tt-library-angular-porfolio';
+import { ROUTE, SharedModule } from 'tt-library-angular-porfolio';
 
 const routes: Route[] = [
   {
@@ -22,7 +22,8 @@ const routes: Route[] = [
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule,
   ],
   declarations: [AppComponent]
 })
