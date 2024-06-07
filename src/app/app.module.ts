@@ -1,9 +1,10 @@
-import { NgModule } from "@angular/core";
-import { Route, RouterModule, Routes } from "@angular/router";
+import { NgModule, inject } from "@angular/core";
+import { Route, Router, RouterModule, Routes } from "@angular/router";
 import { AppComponent } from "./app.component";
 import { ROUTE, SharedModule } from 'tt-library-angular-porfolio';
 import { managementActiveGuard } from "./guards";
 import { UserService } from "./services/user.service";
+import { loadRemoteModule } from "@angular-architects/module-federation";
 
 const routes: Route[] = [
   {
@@ -17,7 +18,13 @@ const routes: Route[] = [
       },
       {
         path: ROUTE.INSIDE_MANAGEMENT,
-        loadChildren: () => import('./modules/inside/inside.module').then((e) => e.InsideModule),
+        loadChildren: () => loadRemoteModule({
+          type: 'module',
+          remoteEntry: 'http://localhost:8083/remoteEntry.js',
+          exposedModule: './module'
+        })
+        .then(m => m.AppModule)
+        .catch(error => inject(Router).navigate([ROUTE.NOT_FOUND])),
       },
       {
         path: '**',
