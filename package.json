@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js"
@@ -27,7 +27,7 @@
     "ng-zorro-antd": "17.2.0",
     "rxjs": "7.8.0",
     "tslib": "2.3.0",
-    "tt-library-angular-porfolio": "2.0.5",
+    "tt-library-angular-porfolio": "2.0.7",
     "zone.js": "0.14.3"
   },
   "devDependencies": {
