@@ -1,13 +1,7 @@
-import { NgModule, inject } from "@angular/core";
-import { Route, Router, RouterModule, Routes } from "@angular/router";
+import { NgModule } from "@angular/core";
+import { Route, RouterModule } from "@angular/router";
+import { ROUTE } from 'tt-library-angular-porfolio';
 import { AppComponent } from "./app.component";
-import { AssetsLink, ROUTE, SharedModule } from 'tt-library-angular-porfolio';
-import { managementActiveGuard } from "./guards";
-import { UserService } from "./services/user.service";
-import { loadRemoteModule } from "@angular-architects/module-federation";
-import { LogOutComponent, LoginComponent } from "./components";
-import { TranslateModule } from "@ngx-translate/core";
-import { CommonModule } from "@angular/common";
 
 const routes: Route[] = [
   {
@@ -31,6 +25,5 @@ const routes: Route[] = [
     RouterModule.forChild(routes),
   ],
   declarations: [AppComponent],
-  providers: [UserService]
 })
 export class AppModule {}

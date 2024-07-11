@@ -3,9 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { GoogleAuthProvider, UserCredential, signInWithPopup } from "firebase/auth";
-import { AssetsLink, CommonService, FirebaseService, ROUTE } from 'tt-library-angular-porfolio';
+import { AssetsLink, CommonService, FirebaseService, ROUTE, UserService } from 'tt-library-angular-porfolio';
 import { invisibleEyeEnter, invisibleEyeLeave } from '../../animations';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'tt-login',
@@ -36,7 +35,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     // this.initLoginForm();
     // this.initSignupForm();
-    if (!this.firebaseService.auth) this.firebaseService.initAuth();
+    // if (!this.firebaseService.auth) this.firebaseService.initAuth();
   }
 
   initLoginForm() {
