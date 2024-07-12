@@ -3,8 +3,18 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { GoogleAuthProvider, UserCredential, signInWithPopup } from "firebase/auth";
-import { AssetsLink, CommonService, FirebaseService, ROUTE, UserService } from 'tt-library-angular-porfolio';
+import {
+  AssetsLink,
+  CommonService,
+  FirebaseService,
+  FIRESTORE_COLLECTION,
+  FIRESTORE_PERMISSIOON,
+  IFirestoreUser,
+  ROUTE,
+  UserService,
+} from 'tt-library-angular-porfolio';
 import { invisibleEyeEnter, invisibleEyeLeave } from '../../animations';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'tt-login',
@@ -82,37 +92,49 @@ export class LoginComponent implements OnInit {
     if (this.firebaseService.auth) {
       signInWithPopup(this.firebaseService.auth, googleProvider)
         .then((resp: UserCredential) => {
-          if (resp) this.userService.user = resp;
-          const _url = `${ROUTE.CMS}/${ROUTE.CMS_MAIN}`
-          this.commonService.gotoURL(_url);
+          if (resp) {
+            this.userService.user = resp;
+
+            this.firebaseService.checkExistStore<IFirestoreUser>('email', this.userService.user.email).subscribe({
+              next: resp => {
+                if (resp.empty) {
+                  const _uuid: string = uuid();
+                  const _user: IFirestoreUser = {
+                    uuid: _uuid,
+                    email: this.userService.user.email,
+                    phone_number: this.userService.user.phoneNumber,
+                    permission: FIRESTORE_PERMISSIOON.USER,
+                    full_name: this.userService.user.displayName,
+                  };
+                  this.firebaseService.addNewDocument(FIRESTORE_COLLECTION.USERS, _user).subscribe(resp => {
+                    if (resp) {
+                      this.userService._uuid = _uuid;
+                      const _url = `${ROUTE.CMS}/${ROUTE.CMS_MAIN}`
+                      this.commonService.gotoURL(_url);
+                    } else {
+                      this.firebaseService.logout();
+                      this.commonService.showError();
+                    }
+                  });
+                } else {
+                  this.userService._uuid = resp.data?.uuid || '';
+                  const _url = `${ROUTE.CMS}/${ROUTE.CMS_MAIN}`
+                  this.commonService.gotoURL(_url);
+                }
+              },
+              error: error => {
+                console.error(error);
+                this.firebaseService.logout();
+                this.commonService.showError();
+              }
+            });
+          }
         })
         .catch((error: any) => {
           console.error('login error', error);
           this.commonService.showError();
         });
       }
-
-    // setPersistence(this.firebaseService.auth, {type: 'LOCAL'})
-    //   .then(resp => {
-    //     console.log(resp);
-    //     const googleProvider = new GoogleAuthProvider();
-    //     if (this.firebaseService.auth) {
-    //       signInWithPopup(this.firebaseService.auth, googleProvider)
-    //         .then((resp: UserCredential) => {
-    //           if (resp) this.userService.user = resp;
-    //           const _url = `${ROUTE.MANAGEMENT}/${ROUTE.INSIDE_MANAGEMENT}`
-    //           this.commonService.gotoURL(_url);
-    //         })
-    //         .catch((error: any) => {
-    //           console.error('login error', error);
-    //           this.commonService.showError();
-    //         });
-    //       }
-    //   })
-    //   .catch((error: any) => {
-    //     console.error('login error', error);
-    //     this.commonService.showError();
-    //   });
   }
 
   loginWithFacebook() {}
