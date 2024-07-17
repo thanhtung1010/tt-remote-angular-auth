@@ -12,6 +12,7 @@ import {
   IFirestoreUser,
   ROUTE,
   UserService,
+  WinfitOnlineService,
 } from 'tt-library-angular-porfolio';
 import { invisibleEyeEnter, invisibleEyeLeave } from '../../animations';
 import { v4 as uuid } from 'uuid';
@@ -40,9 +41,11 @@ export class LoginComponent implements OnInit {
     private firebaseService: FirebaseService,
     private commonService: CommonService,
     private userService: UserService,
+    private winfitOnline: WinfitOnlineService,
   ) { }
 
   ngOnInit() {
+    console.log(this.winfitOnline.baseIndexWinfit)
     // this.initLoginForm();
     // this.initSignupForm();
     // if (!this.firebaseService.auth) this.firebaseService.initAuth();
@@ -109,8 +112,17 @@ export class LoginComponent implements OnInit {
                   this.firebaseService.addNewDocument(FIRESTORE_COLLECTION.USERS, _user).subscribe(resp => {
                     if (resp) {
                       this.userService._uuid = _uuid;
-                      const _url = `${ROUTE.CMS}/${ROUTE.CMS_MAIN}`
-                      this.commonService.gotoURL(_url);
+                      let _url = `${ROUTE.CMS}/${ROUTE.CMS_MAIN}`;
+                      let param = undefined;
+                      const winfitIndex = this.winfitOnline.baseIndexWinfit;
+
+                      if (!Number.isNaN(winfitIndex.bmi) && !Number.isNaN(winfitIndex.waterNeeded)) {
+                        _url = ROUTE.WINFIT_ONLINE;
+                        param = {
+                          backFromLogin: true,
+                        };
+                      }
+                      this.commonService.gotoURL(_url, param);
                     } else {
                       this.firebaseService.logout();
                       this.commonService.showError();
@@ -118,8 +130,17 @@ export class LoginComponent implements OnInit {
                   });
                 } else {
                   this.userService._uuid = resp.data?.uuid || '';
-                  const _url = `${ROUTE.CMS}/${ROUTE.CMS_MAIN}`
-                  this.commonService.gotoURL(_url);
+                  let _url = `${ROUTE.CMS}/${ROUTE.CMS_MAIN}`;
+                  let param = undefined;
+                  const winfitIndex = this.winfitOnline.baseIndexWinfit;
+
+                  if (!Number.isNaN(winfitIndex.bmi) && !Number.isNaN(winfitIndex.waterNeeded)) {
+                    _url = ROUTE.WINFIT_ONLINE;
+                    param = {
+                      backFromLogin: true,
+                    };
+                  }
+                  this.commonService.gotoURL(_url, param);
                 }
               },
               error: error => {
