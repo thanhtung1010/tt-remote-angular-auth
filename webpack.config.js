@@ -16,4 +16,8 @@ module.exports = withModuleFederationPlugin({
     ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
   },
 
+  // resolve: {
+  //   mainFields: ["browser", "main"],
+  // },
+
 });

@@ -1,21 +1,21 @@
 import { NgModule } from "@angular/core";
-import { Route, RouterModule, Routes } from "@angular/router";
+import { Route, RouterModule } from "@angular/router";
+import { ROUTE } from 'tt-library-angular-porfolio';
 import { AppComponent } from "./app.component";
-import { ROUTE, SharedModule } from 'tt-library-angular-porfolio';
 
 const routes: Route[] = [
   {
-    path: ROUTE.OUTSIDE_MANAGEMENT,
-    loadChildren: () => import('./modules/outside/outside.module').then((e) => e.OutsideModule),
+    path: ROUTE.AUTH_LOGIN,
+    loadComponent: () => import('./components/login/login.component').then((c) => c.LoginComponent),
   },
   {
-    path: ROUTE.INSIDE_MANAGEMENT,
-    loadChildren: () => import('./modules/inside/inside.module').then((e) => e.InsideModule),
+    path: ROUTE.AUTH_LOGOUT,
+    loadComponent: () => import('./components/log-out/log-out.component').then((c) => c.LogOutComponent),
   },
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: ROUTE.OUTSIDE_MANAGEMENT,
+    redirectTo: ROUTE.AUTH_LOGIN,
   },
 ];
 
@@ -23,8 +23,7 @@ const routes: Route[] = [
   bootstrap: [AppComponent],
   imports: [
     RouterModule.forChild(routes),
-    SharedModule,
   ],
-  declarations: [AppComponent]
+  declarations: [AppComponent],
 })
 export class AppModule {}
