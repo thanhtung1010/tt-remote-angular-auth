@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.winfitOnline.baseIndexWinfit)
     // this.initLoginForm();
     // this.initSignupForm();
     // if (!this.firebaseService.auth) this.firebaseService.initAuth();
